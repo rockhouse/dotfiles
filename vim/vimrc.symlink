@@ -1,145 +1,148 @@
-set tildeop
-set guifont=Menlo\ Regular:h20        
-set lines=32 columns=117
+"filetype plugin indent off "clear cache and enable at the end again
+filetype off                  " required
+
+" SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set tildeop
+" Disable backwards compatibility - Necesary for lots of cool vim things
+set nocompatible
+set suffixesadd=.jsx,.js,.less
+set guifont=Monaco:h17
 set tabstop=2
 set softtabstop=2
 set expandtab
 set shiftwidth=2
-set scrolloff=3 " Minimal Number of visible Lines before/after the cursor
+set scrolloff=10 " Minimal Number of visible Lines before/after the cursor
 set autoindent
 set showmode
 set showcmd
 set wildmenu
 set wildmode=list:longest
-set visualbell
+" set visualbell
 set ttyfast
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
 set ignorecase
 set smartcase
-"set gdefault
-"
-
-map <c-h>h :FufCoverageFile<cr>
-map <c-h>b :FufBuffer<cr>
-map <c-h>f :FufFile<cr>
-
-
-"enable shift+enter to post an end
-imap <S-CR> <CR><CR>end<Esc>-cc
-map <C-j> <F5>
-
-
-nnoremap <C-L> ]m
-"map <C-\> ]m
-"map <C-j> ]m
-map <D-]> ]m
-map <D-[> [m
-map <C-k> [m
-map <C-'> [m
-map <tab> ]m
-map <C-\> :let @/ = ""<cr>
-
-"nmap <M-Tab> [m<CR>
-nnoremap <leader><space> :noh<cr>
-"nnoremap <tab> %
-"vnoremap <tab> %
-
-"au InsertEnter * hi LineNr ctermbg=darkRed
-au InsertEnter * hi StatusLine guibg=white guifg=#eeeeee ctermbg=white
-" au InsertEnter * hi StatusLine guibg=Red
-"au InsertLeave * hi LineNr ctermbg=white
-au InsertLeave * hi StatusLine guibg=#43c464 guifg=#ffffff ctermbg=green
-highlight LineNr ctermfg=grey
-
-"map! ;; <ESC>
-"map! jj <ESC>
-map <C-n> :NERDTreeToggle<CR>
-map <C-p> :CommandT<CR>
-map <C-b> :CommandTBuffer<CR>
-highlight PmenuSel ctermbg=LightBlue
-"highlight Normal guibg=Black guifg=White
-
-"nnoremap <up> <nop>
-"nnoremap <down> <nop>
-"nnoremap <left> <nop>
-"nnoremap <right> <nop>
-"inoremap <up> <nop>
-"inoremap <down> <nop>
-"inoremap <left> <nop>
-"inoremap <right> <nop>
-nnoremap j gj
-nnoremap k gk
-nnoremap ; :
-inoremap <D-/> <ESC>
-		  
-map <F7> :call CommentToggle()<CR>
-
-"COLORS
-set t_Co=256 "make use of 256 colors
-"color railscasts
-color summerfruit256
-
-syntax on             " Enable syntax highlighting
-filetype on           " Enable filetype detection
-filetype indent on    " Enable filetype-specific indenting
-filetype plugin on    " Enable filetype-specific plugins
-
-" Show Linenumbers and color them grey
 set number
-" highlight LineNr ctermfg=grey
-" au InsertEnter * hi StatusLine guibg=Red
-" Allow switching unsaved buffers
 set hidden
+set incsearch " Enable search while type
+set hlsearch " Highlight all search matches
+" set relativenumber
+set laststatus=1 "disable bottom bar
 
-" Enable search while type
-set incsearch
+" VUNDLE """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Highlight all search matches
-set hlsearch
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-" Necesary for lots of cool vim things
-set nocompatible
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
-"set relativenumber
+" Fugitive - a Git wrapper so awesome, it should be illegal
+Plugin 'tpope/vim-fugitive'
 
- set rtp+=~/.vim/bundle/vundle/
- call vundle#rc()
+" Surround - quoting/parenthesizing made simple
+Plugin 'tpope/vim-surround'
 
- " let Vundle manage Vundle
- " required! 
- Bundle 'gmarik/vundle'
+" Unimpaired - pairs of handy bracket mappings
+Plugin 'tpope/vim-unimpaired'
 
-" My Bundles here:
-"
-" original repos on github
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-rails.git'
-" vim-scripts repos
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-" non github repos
-Bundle 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (ie. when working on your own plugin)
-"Bundle 'file:///Users/gmarik/path/to/plugin'
-" ...
-"RUBY
-Bundle 'vim-ruby/vim-ruby'
-"Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
- "Bundle 'git://github.com/vim-ruby/vim-ruby.git'
- "filetype plugin indent on     " required!
- "
- " Brief help
- " :BundleList          - list configured bundles
- " :BundleInstall(!)    - install(update) bundles
- " :BundleSearch(!) foo - search(or refresh cache first) for foo
- " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
- "
- " see :h vundle for more details or wiki for FAQ
- " NOTE: comments after Bundle command are not allowed..
+" Bubble single lines
+nmap <C-k> [e
+nmap <C-j> ]e
+" Bubble multiple lines
+vmap <C-k> [egv
+vmap <C-j> ]egv
 
-Bundle 'rking/ag.vim'
+"tcomment - An extensible & universal comment vim-plugin: gcc for commenting out
+Plugin 'tomtom/tcomment_vim'
+
+"Ctrlp - Fuzzy file, buffer, mru, tag
+Plugin 'kien/ctrlp.vim'
+set wildignore+=*node_modules/*,*/tmp/*,*.so,*.swp,*.zip,*/.git/*
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_working_path_mode='ra'
+nmap <leader>gf :CtrlP<CR><C-\>w
+
+" let g:ctrlp_cmd = 'CtrlPMixed'
+"reviewed till here
+nnoremap <C-p> :CtrlP<CR>
+nnoremap <C-m> :CtrlPMixed<CR>
+nnoremap <CR> :CtrlPBuffer<CR>
+
+"Nerdtree - tree explorer plugin for vim.
+Plugin 'scrooloose/nerdtree'
+noremap <leader><cr>   :NERDTreeToggle<CR>
+
+"Vim plugin for the_silver_searcher, 'ag', a replacement for the Perl module / CLI script 'ack'
+Plugin 'rking/ag.vim'
+
+"Plugin 'bling/vim-airline'
+
+Plugin 'fatih/vim-go'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+" VUNDLE END  """"""""""""""""""""""""""""""""""""""""""""""""
+
+" Disable Macvim-Scrollbars
+set guioptions-=mlrbLRT
+set guioptions-=r
+set guioptions-=l
+set guioptions-=L
+set guioptions=c
+
+" SHORTCUTS """""""""""""""""""""""""""""""""""""""""""""""""
+" Space will toggle folds!
+" nnoremap <space> za
+" Edit vimrc \ev
+nnoremap <silent> <Leader>ev :tabedit $MYVIMRC<CR>
+
+nnoremap <space> 10<C-E>
+" nnoremap ` <C-W><C-W>
+nmap zs :Gstatus<cr>
+nmap zc rGcommit<cr>
+nmap zx :noh<cr>
+nmap gp :!open <C-R><C-F><cr>
+nmap zp :set invnumber<CR>:set invpaste paste?<CR>
+imap <tab> <c-n>
+
+" nnoremap <up> <nop>
+" nnoremap <down> <nop>
+" nnoremap <left> <nop>
+" nnoremap <right> <nop>
+" inoremap <up> <nop>
+" inoremap <down> <nop>
+" inoremap <left> <nop>
+" Swap ; and :  Convenient.
+
+" THEME """""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256 "make use of 256 colors
+" color summerfruit256
+color Tomorrow-Night
+
+highlight Todos ctermbg=green ctermfg=black guibg=green guifg=black
+" match MyGroup /TODO/
+au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1) "Long Lines Red
+au BufWinEnter * let w:m1=matchadd('Todos', '\TODO', -1)
+
+" CONFIG AUTOCMD's """""""""""""""""""""""""""""""""""""""""
+" autocmd needs to be in a autocmd group with an unload autocmd! 
+" otherwise vim gets slower with every reload of the vimrc
+" http://stackoverflow.com/questions/15353988/progressively-slower-reloading-time-of-vimrc
+augroup Group1  
+  " Unload
+  autocmd!
+  " Auto source the vimrc file after saving it
+  autocmd bufwritepost .vimrc source $MYVIMRC
+augroup END
+
+" THE END """"""""""""""""""""""""""""""""""""""""""""""" 
+syntax on             " Enable syntax highlighting
+filetype plugin indent on
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
+

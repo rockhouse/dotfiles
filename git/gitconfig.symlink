@@ -1,17 +1,18 @@
 [hub]
         protocol = https
 [user]
-        name = nivoc
-        email = kuehnle@online.de
+        name = Matthias Kuehnle
+        email = mak@marketlogicsoftware.com
 [credential]
         helper = osxkeychain
 [alias]
         co = checkout
+        br = branch
         promote = !$ZSH/bin/git-promote
         wtf     = !$ZSH/bin/git-wtf
         rank-contributers = !$ZSH/bin/git-rank-contributers
         count   = !git shortlog -sn
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset-%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  lg = log --color --graph --date=format:%a%d%b%kh --pretty=format:'%Cred%h%Creset %Cblue%cd%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	st = status -sb
 	co = checkout
         s = status
@@ -29,6 +30,8 @@
         whitespace = nowarn
 [mergetool]
         keepBackup = false
+; [diff]
+;         external = ~/bin/git_diff_wrapper
 [difftool]
         prompt = false
 [help]
@@ -39,3 +42,7 @@
         #
         # Setting to git 2.0 default to surpress warning message
 	default = matching
+[diff]
+	tool = gvimdiff
+[difftool "gvimdiff"]
+	path = /usr/local/bin/mvimdiff
